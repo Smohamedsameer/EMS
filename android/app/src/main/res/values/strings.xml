@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Senela Int Pvt Ltd</string>
+    <string name="title_activity_main">Senela Int Pvt Ltd</string>
+    <string name="package_name">com.senela.work</string>
+    <string name="custom_url_scheme">com.senela.work</string>
+</resources>

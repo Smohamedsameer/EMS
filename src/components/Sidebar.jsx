@@ -18,17 +18,31 @@ const EMPLOYEE_LINKS = [
   { to: '/employee/profile', label: 'Profile', icon: '👤' }
 ]
 
-export default function Sidebar({ open }) {
+export default function Sidebar({ open, onClose }) {
   const { isAdmin } = useAuth()
   const links = isAdmin ? ADMIN_LINKS : EMPLOYEE_LINKS
 
   return (
     <aside className={`sidebar ${open ? 'open' : ''}`}>
       <div className="sidebar-brand">
-        {/* <span className="brand-mark"><img src="./logo.jpeg"></img></span> */}
-        <img src="/logo1.png" alt="Senela International Logo" className="sidebar-logo"/>
-        <span className="brand-text">{isAdmin ? 'Senela International Prt Ltd' : 'Senela International Pvt Ltd'}</span>
-      </div>
+  <img
+    src="/logo1.png"
+    alt="Senela International Logo"
+    className="sidebar-logo"
+  />
+
+  <span className="brand-text">
+    {isAdmin ? 'Senela International Pvt Ltd' : 'Senela International Pvt Ltd'}
+  </span>
+
+  <button
+    className="sidebar-close"
+    onClick={onClose}
+    aria-label="Close sidebar"
+  >
+    ✕
+  </button>
+</div>
       <nav className="sidebar-nav">
         {links.map((link) => (
           <NavLink

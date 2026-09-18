@@ -33,7 +33,21 @@
   z-index: 40;
   transition: transform 0.25s ease;
 }
+.sidebar-close {
+  display: none;
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.25rem;
+}
 
+.sidebar-close:hover {
+  opacity: 0.75;
+}
 /* .sidebar-brand {
   display: flex;
   align-items: center;
@@ -832,6 +846,11 @@ tbody tr:hover {
   .sidebar.open {
     transform: translateX(0);
   }
+
+  .sidebar-close {
+  display: block;
+}
+
   .sidebar-backdrop {
     display: block;
     position: fixed;
