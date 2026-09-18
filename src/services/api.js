@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'ems-backend-production-f681.up.railway.app/api'
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://ems-backend-production-f681.up.railway.app/api'
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -60,8 +60,8 @@ export const employeeApi = {
 
 // ---------------- Attendance ----------------
 export const attendanceApi = {
-  checkIn: () => api.post('/attendance/check-in').then((r) => r.data),
-  checkOut: () => api.post('/attendance/check-out').then((r) => r.data),
+  checkIn: (location) => api.post('/attendance/check-in', location || {}).then((r) => r.data),
+  checkOut: (location) => api.post('/attendance/check-out', location || {}).then((r) => r.data),
   today: () => api.get('/attendance/today').then((r) => r.data),
   myHistory: () => api.get('/attendance/my-history').then((r) => r.data),
   search: (params) => api.get('/attendance', { params }).then((r) => r.data),
