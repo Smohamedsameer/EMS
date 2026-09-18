@@ -46,10 +46,11 @@ export default function Sidebar({ open, onClose }) {
       <nav className="sidebar-nav">
         {links.map((link) => (
           <NavLink
-            key={link.to}
-            to={link.to}
-            className={({ isActive }) => 'sidebar-link' + (isActive ? ' active' : '')}
-          >
+  key={link.to}
+  to={link.to}
+  onClick={onClose}
+  className={({ isActive }) => 'sidebar-link' + (isActive ? ' active' : '')}
+>
             <span className="sidebar-icon">{link.icon}</span>
             <span>{link.label}</span>
           </NavLink>
