@@ -7,7 +7,10 @@ export default function Layout({ children }) {
 
   return (
     <div className="app-shell">
-      <Sidebar open={sidebarOpen} />
+      <Sidebar
+  open={sidebarOpen}
+  onClose={() => setSidebarOpen(false)}
+/>
       {sidebarOpen && <div className="sidebar-backdrop" onClick={() => setSidebarOpen(false)} />}
       <div className="app-main">
         <Navbar onToggleSidebar={() => setSidebarOpen((o) => !o)} />
