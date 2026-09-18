@@ -27,7 +27,7 @@ export default function Sidebar({ open }) {
       <div className="sidebar-brand">
         {/* <span className="brand-mark"><img src="./logo.jpeg"></img></span> */}
         <img src="/logo1.png" alt="Senela International Logo" className="sidebar-logo"/>
-        <span className="brand-text">{isAdmin ? 'Senela Int Prt Ltd' : 'Senela International Pvt Ltd'}</span>
+        <span className="brand-text">{isAdmin ? 'Senela International Prt Ltd' : 'Senela International Pvt Ltd'}</span>
       </div>
       <nav className="sidebar-nav">
         {links.map((link) => (
