@@ -116,7 +116,7 @@ export default function Attendance() {
               <th>Employee Name</th>
               <th>Date</th>
               <th>Check In</th>
-              <th>Location</th>
+              {/* <th>Locations</th> */}
               <th>Check Out</th>
               <th>Working Hours</th>
               <th>Status</th>
@@ -124,29 +124,33 @@ export default function Attendance() {
             </tr>
           </thead>
           <tbody>
-            {loading && <tr><td colSpan={9} className="table-empty">Loading…</td></tr>}
-            {!loading && filtered.length === 0 && <tr><td colSpan={9} className="table-empty">No attendance records found.</td></tr>}
+            {loading && <tr><td colSpan={8} className="table-empty">Loading…</td></tr>}
+            {!loading && filtered.length === 0 && <tr><td colSpan={8} className="table-empty">No attendance records found.</td></tr>}
             {!loading && filtered.map((r) => (
               <tr key={r.id}>
                 <td>{r.employeeId}</td>
                 <td>{r.employeeName}</td>
                 <td>{r.attendanceDate}</td>
                 <td>{formatTime(r.checkIn)}</td>
-                <td>
-                  {r.checkInLatitude && r.checkInLongitude ? (
-                    <a
-                      href={`https://www.google.com/maps?q=${r.checkInLatitude},${r.checkInLongitude}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title="View check-in location"
-                      style={{ fontSize: '20px', textDecoration: 'none', cursor: 'pointer' }}
-                    >
-                      📍
-                    </a>
-                  ) : (
-                    <span>—</span>
-                  )}
-                </td>
+                {/* <td>
+  {r.checkInLatitude && r.checkInLongitude ? (
+    <a
+      href={`https://www.google.com/maps?q=${r.checkInLatitude},${r.checkInLongitude}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      title="View check-in location"
+      style={{
+        fontSize: '20px',
+        textDecoration: 'none',
+        cursor: 'pointer'
+      }}
+    >
+      📍
+    </a>
+  ) : (
+    <span>—</span>
+  )}
+</td> */}
                 <td>{formatTime(r.checkOut)}</td>
                 <td>{r.workingHours != null ? `${r.workingHours} hrs` : '--'}</td>
                 <td><StatusBadge status={r.status} /></td>

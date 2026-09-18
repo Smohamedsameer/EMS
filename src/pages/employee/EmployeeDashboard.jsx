@@ -8,31 +8,10 @@ function formatTime(dt) {
   return new Date(dt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }
 
-/**
- * Resolves with { latitude, longitude } from the browser, or null if the
- * browser doesn't support geolocation or the user denies/ignores the
- * permission prompt. We never block check-in/out on this — location is
- * best-effort only.
- */
-function getCurrentLocation() {
-  return new Promise((resolve) => {
-    if (!navigator.geolocation) {
-      resolve(null)
-      return
-    }
-    navigator.geolocation.getCurrentPosition(
-      (pos) => resolve({ latitude: pos.coords.latitude, longitude: pos.coords.longitude }),
-      () => resolve(null),
-      { enableHighAccuracy: true, timeout: 8000 }
-    )
-  })
-}
-
 export default function EmployeeDashboard() {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [actionError, setActionError] = useState('')
-  const [locationWarning, setLocationWarning] = useState('')
   const [working, setWorking] = useState(false)
 
   const load = async () => {
@@ -54,11 +33,8 @@ export default function EmployeeDashboard() {
   const handleCheckIn = async () => {
     setWorking(true)
     setActionError('')
-    setLocationWarning('')
     try {
-      const location = await getCurrentLocation()
-      if (!location) setLocationWarning('Check-in recorded without location — location access was denied or unavailable.')
-      await attendanceApi.checkIn(location)
+      await attendanceApi.checkIn()
       load()
     } catch (err) {
       setActionError(getErrorMessage(err))
@@ -70,11 +46,8 @@ export default function EmployeeDashboard() {
   const handleCheckOut = async () => {
     setWorking(true)
     setActionError('')
-    setLocationWarning('')
     try {
-      const location = await getCurrentLocation()
-      if (!location) setLocationWarning('Check-out recorded without location — location access was denied or unavailable.')
-      await attendanceApi.checkOut(location)
+      await attendanceApi.checkOut()
       load()
     } catch (err) {
       setActionError(getErrorMessage(err))
@@ -98,7 +71,6 @@ export default function EmployeeDashboard() {
       </div>
 
       {actionError && <div className="login-error">{actionError}</div>}
-      {locationWarning && <div className="text-muted" style={{ marginBottom: '0.75rem' }}>📍 {locationWarning}</div>}
 
       <div className="card">
         <h3>Today's Attendance</h3>

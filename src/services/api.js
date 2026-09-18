@@ -60,8 +60,8 @@ export const employeeApi = {
 
 // ---------------- Attendance ----------------
 export const attendanceApi = {
-  checkIn: (location) => api.post('/attendance/check-in', location || {}).then((r) => r.data),
-  checkOut: (location) => api.post('/attendance/check-out', location || {}).then((r) => r.data),
+  checkIn: () => api.post('/attendance/check-in').then((r) => r.data),
+  checkOut: () => api.post('/attendance/check-out').then((r) => r.data),
   today: () => api.get('/attendance/today').then((r) => r.data),
   myHistory: () => api.get('/attendance/my-history').then((r) => r.data),
   search: (params) => api.get('/attendance', { params }).then((r) => r.data),
