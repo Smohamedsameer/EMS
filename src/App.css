@@ -501,8 +501,8 @@ tbody tr:hover {
   display: inline-block;
   padding: 0.22rem 0.6rem;
   border-radius: 999px;
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-size: 0.65rem;
+  font-weight: 500;
   letter-spacing: 0.02em;
 }
 
