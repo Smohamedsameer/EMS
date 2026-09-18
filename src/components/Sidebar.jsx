@@ -26,7 +26,7 @@ export default function Sidebar({ open }) {
     <aside className={`sidebar ${open ? 'open' : ''}`}>
       <div className="sidebar-brand">
         {/* <span className="brand-mark"><img src="./logo.jpeg"></img></span> */}
-        <img src="/logo.jpeg" alt="Senela International Logo" className="sidebar-logo" />
+        <img src="/logo1.png" alt="Senela International Logo" className="sidebar-logo" style="width:50px; height:50px;" />
         <span className="brand-text">{isAdmin ? 'Senela Int Prt Ltd' : 'Senela International Pvt Ltd'}</span>
       </div>
       <nav className="sidebar-nav">
