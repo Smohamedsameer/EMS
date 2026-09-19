@@ -30,7 +30,7 @@ export default function Login() {
       <div className="login-card">
         <div className="login-logo">
           <span className="brand-mark">EMS</span>
-          <strong>Employee Management System</strong>
+          <strong>Senela International Pvt Ltd</strong>
         </div>
         <h2>Welcome back</h2>
         <p className="subtitle">Sign in with your username/email and password</p>
