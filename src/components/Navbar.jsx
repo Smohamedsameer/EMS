@@ -103,9 +103,9 @@ export default function Navbar({ onToggleSidebar }) {
           </div>
         </div>
 
-        <button className="btn btn-outline" onClick={handleLogout}>
+        {/* <button className="btn btn-outline" onClick={handleLogout}>
           Logout
-        </button>
+        </button> */}
       </div>
     </header>
   )

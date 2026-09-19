@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 
 const ADMIN_LINKS = [
@@ -19,43 +19,69 @@ const EMPLOYEE_LINKS = [
 ]
 
 export default function Sidebar({ open, onClose }) {
-  const { isAdmin } = useAuth()
+  const { isAdmin, logout } = useAuth()
+  const navigate = useNavigate()
+
   const links = isAdmin ? ADMIN_LINKS : EMPLOYEE_LINKS
+
+  const handleLogout = () => {
+    logout()
+    onClose?.()
+    navigate('/login')
+  }
 
   return (
     <aside className={`sidebar ${open ? 'open' : ''}`}>
+
+      {/* Brand */}
       <div className="sidebar-brand">
-  <img
-    src="/logo1.png"
-    alt="Senela International Logo"
-    className="sidebar-logo"
-  />
+        <img
+          src="/logo1.png"
+          alt="Senela International Logo"
+          className="sidebar-logo"
+        />
 
-  <span className="brand-text">
-    {isAdmin ? 'Senela International Pvt Ltd' : 'Senela International Pvt Ltd'}
-  </span>
+        <span className="brand-text">
+          Senela International Pvt Ltd
+        </span>
 
-  <button
-    className="sidebar-close"
-    onClick={onClose}
-    aria-label="Close sidebar"
-  >
-    ✕
-  </button>
-</div>
+        <button
+          className="sidebar-close"
+          onClick={onClose}
+          aria-label="Close sidebar"
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Navigation */}
       <nav className="sidebar-nav">
         {links.map((link) => (
           <NavLink
-  key={link.to}
-  to={link.to}
-  onClick={onClose}
-  className={({ isActive }) => 'sidebar-link' + (isActive ? ' active' : '')}
->
+            key={link.to}
+            to={link.to}
+            onClick={onClose}
+            className={({ isActive }) =>
+              'sidebar-link' + (isActive ? ' active' : '')
+            }
+          >
             <span className="sidebar-icon">{link.icon}</span>
             <span>{link.label}</span>
           </NavLink>
         ))}
       </nav>
+
+      {/* Logout at bottom */}
+      <div className="sidebar-footer">
+        <button
+          className="sidebar-logout"
+          onClick={handleLogout}
+        >
+          <span className="sidebar-icon">🚪</span>
+          <span>Logout</span>
+        </button>
+      </div>
+
     </aside>
   )
 }
