@@ -956,6 +956,12 @@ tbody tr:hover {
   }
 }
 
+/* Logout hidden on PC */
+.sidebar-footer {
+  display: none;
+}
+
+/* Mobile */
 @media (max-width: 900px) {
 
   .sidebar {
@@ -977,10 +983,13 @@ tbody tr:hover {
     overflow-y: auto;
   }
 
+  /* Show logout only on mobile */
   .sidebar-footer {
+    display: block;
     margin-top: auto;
     padding: 1rem;
     flex-shrink: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .sidebar-logout {
@@ -989,10 +998,13 @@ tbody tr:hover {
     align-items: center;
     gap: 0.75rem;
     padding: 0.8rem 1rem;
+
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 8px;
+
     color: #fff;
+    font-size: 0.95rem;
     cursor: pointer;
   }
 
