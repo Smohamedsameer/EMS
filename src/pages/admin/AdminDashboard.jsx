@@ -41,6 +41,7 @@ export default function AdminDashboard() {
 
   return (
     <div>
+    <div className='dashboard-page'>
       <div className="page-header">
         <div>
           <h1>Admin Dashboard</h1>
@@ -104,6 +105,7 @@ export default function AdminDashboard() {
           </BarChart>
         </ResponsiveContainer>
       </div>
+    </div>
     </div>
   )
 }
