@@ -275,6 +275,13 @@
 }
 
 /* ============ Buttons ============ */
+
+
+@media (max-width: 900px) {
+  .navbar-actions > .btn.btn-outline {
+    display: none;
+  }
+}
 .btn {
   border: none;
   border-radius: 8px;
