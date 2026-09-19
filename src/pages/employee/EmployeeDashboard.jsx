@@ -62,7 +62,7 @@ export default function EmployeeDashboard() {
   const today = data.todayAttendance
 
   return (
-    <div>
+    <div className='dashboard-page'>
       <div className="page-header">
         <div>
           <h1>Welcome, {data.employeeName}</h1>

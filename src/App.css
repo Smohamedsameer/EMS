@@ -330,6 +330,14 @@
 }
 
 /* ============ Page header ============ */
+.dashboard-page {
+  min-height: 100vh;
+  background-image: url('/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 .page-header {
   display: flex;
   align-items: center;
@@ -358,7 +366,7 @@
 }
 
 .stat-card {
-  background: var(--color-surface);
+  background: rgba(128, 128, 128, 0.478);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: 1.1rem 1.3rem;
