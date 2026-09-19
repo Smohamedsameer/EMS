@@ -330,10 +330,7 @@
 }
 
 /* ============ Page header ============ */
-.dashboard-page {
-  min-height: 100vh;
-background-color:beige;
-}
+
 .page-header {
   display: flex;
   align-items: center;

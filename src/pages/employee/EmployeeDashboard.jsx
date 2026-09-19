@@ -63,7 +63,6 @@ export default function EmployeeDashboard() {
 
   return (
     <div>
-    <div className='dashboard-page'>
       <div className="page-header">
         <div>
           <h1>Welcome, {data.employeeName}</h1>
@@ -142,7 +141,6 @@ export default function EmployeeDashboard() {
           ))}
         </div>
       </div>
-    </div>
     </div>
   )
 }
