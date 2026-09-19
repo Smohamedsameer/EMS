@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { leaveApi, getErrorMessage } from '../../services/api.js'
+import { leaveApi, holidayApi, getErrorMessage } from '../../services/api.js'
 import StatusBadge from '../../components/StatusBadge.jsx'
 import Modal from '../../components/Modal.jsx'
 
@@ -11,12 +11,56 @@ export default function LeaveManagement() {
   const [comment, setComment] = useState('')
   const [error, setError] = useState('')
 
+  const [holidays, setHolidays] = useState([])
+  const [holidaysLoading, setHolidaysLoading] = useState(true)
+  const [showHolidayModal, setShowHolidayModal] = useState(false)
+  const [holidayForm, setHolidayForm] = useState({ date: '', reason: '' })
+  const [holidayError, setHolidayError] = useState('')
+  const [holidaySaving, setHolidaySaving] = useState(false)
+
   const load = () => {
     setLoading(true)
     leaveApi.getAll().then(setLeaves).catch(() => {}).finally(() => setLoading(false))
   }
 
+  const loadHolidays = () => {
+    setHolidaysLoading(true)
+    holidayApi.getAll().then(setHolidays).catch(() => {}).finally(() => setHolidaysLoading(false))
+  }
+
   useEffect(load, [])
+  useEffect(loadHolidays, [])
+
+  const openHolidayModal = () => {
+    setHolidayForm({ date: '', reason: '' })
+    setHolidayError('')
+    setShowHolidayModal(true)
+  }
+
+  const submitHoliday = async (e) => {
+    e.preventDefault()
+    setHolidaySaving(true)
+    setHolidayError('')
+    try {
+      await holidayApi.create({ date: holidayForm.date, reason: holidayForm.reason })
+      setShowHolidayModal(false)
+      loadHolidays()
+    } catch (err) {
+      setHolidayError(getErrorMessage(err))
+    } finally {
+      setHolidaySaving(false)
+    }
+  }
+
+  const removeHoliday = async (id) => {
+    if (!window.confirm('Remove this holiday? It will no longer show as "H" in the attendance grid.')) return
+    try {
+      await holidayApi.remove(id)
+      loadHolidays()
+    } catch {
+      // ignore
+    }
+  }
 
   const filtered = statusFilter ? leaves.filter((l) => l.status === statusFilter) : leaves
 
@@ -46,6 +90,31 @@ export default function LeaveManagement() {
         <div>
           <h1>Leave Requests</h1>
           <p>Review, approve or reject employee leave applications</p>
+        </div>
+      </div>
+
+      <div className="card" style={{ marginBottom: '1.5rem' }}>
+        <div className="page-header" style={{ marginBottom: '0.5rem' }}>
+          <div>
+            <h3>Company Holidays</h3>
+            <p className="text-muted" style={{ margin: 0 }}>
+              Declare a special date (e.g. a festival) as a holiday for every employee — it will
+              show as <strong>H</strong> for everyone in the monthly attendance grid.
+            </p>
+          </div>
+          <button className="btn btn-primary btn-sm" onClick={openHolidayModal}>+ Add Holiday</button>
+        </div>
+
+        <div className="holiday-list">
+          {holidaysLoading && <p className="text-muted">Loading…</p>}
+          {!holidaysLoading && holidays.length === 0 && <p className="text-muted">No holidays declared yet.</p>}
+          {!holidaysLoading && holidays.map((h) => (
+            <div className="holiday-row" key={h.id}>
+              <span className="holiday-date">{h.date}</span>
+              <span className="holiday-reason">{h.reason}</span>
+              <button className="btn btn-outline btn-sm" onClick={() => removeHoliday(h.id)}>Remove</button>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -115,6 +184,39 @@ export default function LeaveManagement() {
           <label>Remarks (optional)</label>
           <textarea className="input" rows={3} value={comment} onChange={(e) => setComment(e.target.value)} />
         </div>
+      </Modal>
+
+      <Modal title="Add Company Holiday" isOpen={showHolidayModal} onClose={() => setShowHolidayModal(false)} width="440px">
+        <form onSubmit={submitHoliday}>
+          {holidayError && <div className="login-error">{holidayError}</div>}
+          <div className="form-group">
+            <label>Date</label>
+            <input
+              className="input"
+              type="date"
+              required
+              value={holidayForm.date}
+              onChange={(e) => setHolidayForm((f) => ({ ...f, date: e.target.value }))}
+            />
+          </div>
+          <div className="form-group">
+            <label>Reason</label>
+            <input
+              className="input"
+              type="text"
+              placeholder="e.g. Diwali, Independence Day"
+              required
+              value={holidayForm.reason}
+              onChange={(e) => setHolidayForm((f) => ({ ...f, reason: e.target.value }))}
+            />
+          </div>
+          <div className="form-actions">
+            <button type="button" className="btn btn-outline" onClick={() => setShowHolidayModal(false)}>Cancel</button>
+            <button type="submit" className="btn btn-primary" disabled={holidaySaving}>
+              {holidaySaving ? 'Saving…' : 'Save Holiday'}
+            </button>
+          </div>
+        </form>
       </Modal>
     </div>
   )

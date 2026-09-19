@@ -732,6 +732,123 @@ tbody tr:hover {
 }
 
 /* ============ Attendance widget (employee dashboard) ============ */
+/* ============ Monthly attendance grid ============ */
+.view-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.view-tabs button {
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.view-tabs button.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.monthly-grid table {
+  font-size: 0.76rem;
+}
+
+.monthly-grid th,
+.monthly-grid td {
+  padding: 0.5rem 0.45rem !important;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.monthly-grid .emp-col {
+  text-align: left;
+  position: sticky;
+  left: 0;
+  background: var(--color-surface);
+  z-index: 1;
+  min-width: 160px;
+}
+
+.monthly-grid thead .emp-col {
+  background: #f8fafc;
+  z-index: 2;
+}
+
+.monthly-grid .day-col {
+  min-width: 34px;
+}
+
+.monthly-grid .day-col .weekday {
+  display: block;
+  font-size: 0.6rem;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.monthly-grid .day-col.sunday,
+.monthly-grid td.cell-sunday {
+  background: #f1f5f9;
+}
+
+.monthly-grid .day-col.holiday-col {
+  background: var(--color-blue-bg);
+}
+
+.cell-code {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  font-weight: 700;
+}
+
+.cell-P { background: var(--color-green-bg); color: var(--color-green); }
+.cell-A { background: var(--color-red-bg); color: var(--color-red); }
+.cell-L { background: var(--color-blue-bg); color: var(--color-blue); }
+.cell-HD { background: var(--color-amber-bg); color: var(--color-amber); }
+.cell-H { background: var(--color-slate-bg); color: var(--color-slate); }
+
+.monthly-totals {
+  font-weight: 600;
+}
+
+.holiday-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.holiday-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.holiday-row .holiday-date {
+  font-weight: 700;
+  min-width: 110px;
+}
+
+.holiday-row .holiday-reason {
+  flex: 1;
+  color: var(--color-text-muted);
+}
+
 .attendance-widget {
   display: flex;
   align-items: center;

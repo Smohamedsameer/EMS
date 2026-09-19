@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { attendanceApi, employeeApi, getErrorMessage } from '../../services/api.js'
 import StatusBadge from '../../components/StatusBadge.jsx'
 import Modal from '../../components/Modal.jsx'
+import MonthlyAttendanceGrid from './MonthlyAttendanceGrid.jsx'
 
 const STATUS_OPTIONS = ['PRESENT', 'ABSENT', 'HALF_DAY', 'LATE', 'LEAVE']
 
@@ -11,6 +12,7 @@ function formatTime(dt) {
 }
 
 export default function Attendance() {
+  const [view, setView] = useState('daily') // 'daily' | 'monthly'
   const [records, setRecords] = useState([])
   const [employees, setEmployees] = useState([])
   const [loading, setLoading] = useState(true)
@@ -94,6 +96,15 @@ export default function Attendance() {
         </div>
       </div>
 
+      <div className="view-tabs">
+        <button className={view === 'daily' ? 'active' : ''} onClick={() => setView('daily')}>Daily View</button>
+        <button className={view === 'monthly' ? 'active' : ''} onClick={() => setView('monthly')}>Monthly View</button>
+      </div>
+
+      {view === 'monthly' ? (
+        <MonthlyAttendanceGrid />
+      ) : (
+      <>
       <div className="toolbar">
         <input className="input" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
         <select className="select" value={department} onChange={(e) => setDepartment(e.target.value)}>
@@ -116,7 +127,6 @@ export default function Attendance() {
               <th>Employee Name</th>
               <th>Date</th>
               <th>Check In</th>
-              {/* <th>Locations</th> */}
               <th>Check Out</th>
               <th>Working Hours</th>
               <th>Status</th>
@@ -132,25 +142,6 @@ export default function Attendance() {
                 <td>{r.employeeName}</td>
                 <td>{r.attendanceDate}</td>
                 <td>{formatTime(r.checkIn)}</td>
-                {/* <td>
-  {r.checkInLatitude && r.checkInLongitude ? (
-    <a
-      href={`https://www.google.com/maps?q=${r.checkInLatitude},${r.checkInLongitude}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      title="View check-in location"
-      style={{
-        fontSize: '20px',
-        textDecoration: 'none',
-        cursor: 'pointer'
-      }}
-    >
-      📍
-    </a>
-  ) : (
-    <span>—</span>
-  )}
-</td> */}
                 <td>{formatTime(r.checkOut)}</td>
                 <td>{r.workingHours != null ? `${r.workingHours} hrs` : '--'}</td>
                 <td><StatusBadge status={r.status} /></td>
@@ -194,6 +185,8 @@ export default function Attendance() {
           </form>
         )}
       </Modal>
+      </>
+      )}
     </div>
   )
 }

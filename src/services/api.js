@@ -66,7 +66,15 @@ export const attendanceApi = {
   myHistory: () => api.get('/attendance/my-history').then((r) => r.data),
   search: (params) => api.get('/attendance', { params }).then((r) => r.data),
   byEmployee: (employeeId) => api.get(`/attendance/employee/${employeeId}`).then((r) => r.data),
-  correct: (id, payload) => api.put(`/attendance/${id}/correct`, payload).then((r) => r.data)
+  correct: (id, payload) => api.put(`/attendance/${id}/correct`, payload).then((r) => r.data),
+  monthly: (month) => api.get('/attendance/monthly', { params: { month } }).then((r) => r.data)
+}
+
+// ---------------- Holidays ----------------
+export const holidayApi = {
+  getAll: (month) => api.get('/holidays', { params: month ? { month } : {} }).then((r) => r.data),
+  create: (payload) => api.post('/holidays', payload).then((r) => r.data),
+  remove: (id) => api.delete(`/holidays/${id}`).then((r) => r.data)
 }
 
 // ---------------- Tasks ----------------
