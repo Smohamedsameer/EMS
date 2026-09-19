@@ -68,11 +68,11 @@ export default function Login() {
           </button>
         </form>
 
-        <div className="login-hint">
+        {/* <div className="login-hint">
           <strong>Demo Admin:</strong> admin / Admin@123
           <br />
           <strong>Demo Employee:</strong> EMP001 / Employee@123
-        </div>
+        </div> */}
       </div>
     </div>
   )
