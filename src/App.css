@@ -332,7 +332,7 @@
 /* ============ Page header ============ */
 .dashboard-page {
   min-height: 100vh;
-  background-image: url('/background.jpg');
+  background-image: url('/background1.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -366,7 +366,7 @@
 }
 
 .stat-card {
-  background: rgba(128, 128, 128, 0.478);
+  background: rgba(128, 128, 128, 0.752);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: 1.1rem 1.3rem;
@@ -392,7 +392,7 @@
 .stat-card.accent-blue .stat-value { color: var(--color-blue); }
 
 .card {
-  background: rgba(128, 128, 128, 0.481);
+  background: rgba(128, 128, 128, 0.821);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: 1.25rem 1.4rem;
